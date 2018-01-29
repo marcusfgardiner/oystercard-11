@@ -1,4 +1,4 @@
-require "oystercard"
+require 'oystercard'
 
 describe Oystercard do
 end
