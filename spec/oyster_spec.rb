@@ -1,0 +1,2 @@
+describe Oyster do
+end
