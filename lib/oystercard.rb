@@ -18,4 +18,8 @@ class Oystercard
     error_message = "Can't top up, max balance of #{MAX_BALANCE} reached"
     raise error_message if (@balance + amount) > MAX_BALANCE
   end
+
+  def deduct_fare(amount)
+    @balance -= amount
+  end
 end
