@@ -24,8 +24,8 @@ describe Oystercard do
     end
   end
 
-  context '#deduct_fare' do 
-    it 'deducts a fare from the balance' do 
+  context '#deduct_fare' do
+    it 'deducts a fare from the balance' do
       p oyster_with_balance
       expect{oyster_with_balance.deduct_fare(amount)}.to change { oyster_with_balance.balance }.by -amount
       p oyster_with_balance
