@@ -15,6 +15,7 @@ class Oystercard
   end
 
   def pre_top_up_checks(amount)
-    raise "Can't top up, max balance reached" if (@balance + amount) > MAX_BALANCE
+    error_message = "Can't top up, max balance of #{MAX_BALANCE} reached"
+    raise error_message if (@balance + amount) > MAX_BALANCE
   end
 end
