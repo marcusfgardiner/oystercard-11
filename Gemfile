@@ -11,5 +11,10 @@ gem 'rspec', group :development, :test
 # # https://github.com/CarlosTrapet/oystercard-11.git
 
 
-# # gem "rails"
 
+group :development, :test do
+  gem 'rspec'
+end
+
+
+git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
