@@ -1,3 +1,4 @@
+require 'irb'
 
 class Oystercard
 
