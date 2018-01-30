@@ -44,8 +44,10 @@ class Oystercard
   end
 
   def print_journey_history
-    @journey_history.each do
-      
+    count = 1
+    @journey_history.each do |array|
+      puts "Journey #{count} - Entry: " + array[0].to_s + " Exit: " + array[1].to_s
+      count += 1
     end
   end
 

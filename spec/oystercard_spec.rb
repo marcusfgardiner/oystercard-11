@@ -19,11 +19,16 @@ describe Oystercard do
     oyster_touched_in.touch_out(station)
     oyster_touched_in
   end
-
-  let(:oyster_journey) do
-    oyster_with_balance.touch_in(double("A unique station"))
-    oyster_with_balance.touch_out(double("A unique station"))
+  let(:oyster_2_journeys) do
+    oyster_with_balance.touch_in("Kings Plings")
+    oyster_with_balance.touch_out("Victoire")
+    oyster_with_balance.touch_in("Liverpoo")
+    oyster_with_balance.touch_out("Aldwait")
     oyster_with_balance
+  end
+  let(:printed_journey_history) do
+    puts "Journey 1 - Entry: Kings Plings Exit: Victoire"
+    print "Journey 2 - Entry: Liverpoo Exit: Aldwait"
   end
 
   context '#initialize' do
@@ -86,8 +91,7 @@ describe Oystercard do
 
   context '#print_journey_history' do
     it 'should print out journey_history' do
-      2.times { oyster_journey}
-      expect(oyster_journey.print_journey_history).to eq "1: #{oyster_journey.journey_history[0]}, 2: #{oyster_journey.journey_history[1]}"
+      expect{oyster_2_journeys.print_journey_history}.to output(printed_journey_history).to_stdout
     end
   end
 end
