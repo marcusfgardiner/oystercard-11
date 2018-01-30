@@ -34,10 +34,28 @@ describe Oystercard do
     end
   end
 
+  context '#in_journey' do 
+    it 'returns a boolean' do 
+      expect(oyster_with_balance.in_journey?).to eq(true).or eq(false) 
+    end
+  end
+
+  context '#touch_in' do 
+    it 'changes in_journey status to true' do 
+      expect { oyster_with_balance.touch_in } .to change{ oyster_with_balance.in_journey }.to (true)
+    end
+  end
+
+  context '#touch_out' do 
+    # expect subject to receive method deduct_fare
+  end
+
+
+
   # TODO - make test so this can be true or false
   # context '#in_journey?' do
   #   it "changes the card's @journey to true" do
-  #     expect( oyster_with_balance.)
+  #     expect( oyster_with_balance.in_journey).to eq
   #   end
   # end
 end
