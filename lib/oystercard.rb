@@ -8,11 +8,7 @@ class Oystercard
 
   def initialize
     @balance = 0
-<<<<<<< HEAD
     @in_journey = in_journey?
-=======
-    @in_journey = false
->>>>>>> 4a47e79b295ec0eb160a3a29309b4206ebd71a7a
   end
 
   def top_up(amount)
@@ -29,13 +25,7 @@ class Oystercard
     @balance -= amount
   end
 
-<<<<<<< HEAD
-  def in_journey?
-    # TODO - make test so this can be true or false
-    false
-=======
   def touch_in
-    # change_journey_status
     @in_journey = in_journey?
   end
 
@@ -45,6 +35,5 @@ class Oystercard
 
   def in_journey?
     true
->>>>>>> 4a47e79b295ec0eb160a3a29309b4206ebd71a7a
   end
 end
