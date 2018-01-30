@@ -24,7 +24,7 @@ describe Oystercard do
     end
 
     it 'default journey status is false' do
-      expect(subject.in_journey).to eq false
+      expect(subject).not_to be_in_journey
     end
   end
 
@@ -36,12 +36,6 @@ describe Oystercard do
     it 'raises an error if top up exceeds max balance' do
       error_message = "Can't top up, max balance of #{described_class::MAX_BALANCE} reached"
       expect { subject.top_up(described_class::MAX_BALANCE + amount) }.to raise_error error_message
-    end
-  end
-
-  context '#in_journey?' do
-    it 'returns true if in journey' do
-      expect(subject).to be_in_journey
     end
   end
 
@@ -62,7 +56,7 @@ describe Oystercard do
 
   context '#touch_out' do
     it 'should make in_journey? false' do
-      expect(oyster_touched_out.in_journey).to eq false
+      expect(oyster_touched_out).not_to be_in_journey
     end
 
     it 'should deduct min fare on touch out' do
