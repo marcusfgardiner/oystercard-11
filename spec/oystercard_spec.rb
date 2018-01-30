@@ -3,13 +3,14 @@
 require 'oystercard'
 
 describe Oystercard do
+  let(:station) {double("A station")}
   let(:amount) { 10 }
   let(:oyster_with_balance) do
     subject.top_up(50)
     subject
   end
   let(:oyster_touched_in) do
-    oyster_with_balance.touch_in
+    oyster_with_balance.touch_in(station)
     oyster_with_balance
   end
   let(:oyster_touched_out) do
@@ -47,11 +48,15 @@ describe Oystercard do
   context '#touch_in' do
     it "shouldn't allow touch in if balance is below minimum" do
       error_message = "Can't touch in, your balance is below #{described_class::MIN_FARE}"
-      expect { subject.touch_in }.to raise_error error_message
+      expect { subject.touch_in(station) }.to raise_error error_message
     end
 
     it 'should make in_journey? true' do
       expect(oyster_touched_in).to be_in_journey
+    end
+
+    it "Should keep track of starting station" do
+      expect(oyster_touched_in.entry_station).to eq station
     end
   end
 

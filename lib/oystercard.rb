@@ -1,11 +1,11 @@
+
 require 'irb'
 
 class Oystercard
-
   MAX_BALANCE = 90
   MIN_FARE = 1
 
-  attr_reader :balance, :in_journey
+  attr_reader :balance, :in_journey, :entry_station
 
   def initialize
     @balance = 0.0
@@ -22,8 +22,9 @@ class Oystercard
     raise error_message if (@balance + amount) > MAX_BALANCE
   end
 
-  def touch_in
+  def touch_in(station)
     pre_touch_in_checks
+    @entry_station = station
     @in_journey = in_journey?
   end
 
@@ -41,6 +42,7 @@ class Oystercard
   end
 
   private
+
   def deduct_fare(amount)
     @balance -= amount
   end
