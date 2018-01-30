@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'oystercard'
 
 describe Oystercard do
@@ -10,6 +12,10 @@ describe Oystercard do
     oyster_with_balance.touch_in
     oyster_with_balance
   end
+  let(:oyster_touched_out) do
+    oyster_touched_in.touch_out
+    oyster_touched_in
+  end
 
   context '#initialize' do
     it 'has a default balance of 0' do
@@ -17,7 +23,7 @@ describe Oystercard do
     end
 
     it 'default journey status is false' do
-      expect(subject).not_to be_in_journey
+      expect(subject.in_journey).to eq false
     end
   end
 
@@ -32,12 +38,6 @@ describe Oystercard do
     end
   end
 
-  context '#deduct_fare' do
-    it 'deducts a fare from the balance' do
-      expect { oyster_with_balance.deduct_fare(amount) }.to change { oyster_with_balance.balance }.by (-amount)
-    end
-  end
-
   context '#in_journey?' do
     it 'returns true if in journey' do
       expect(subject).to be_in_journey
@@ -45,6 +45,11 @@ describe Oystercard do
   end
 
   context '#touch_in' do
+    it "shouldn't allow touch in if balance is below minimum" do
+      error_message = "Can't touch in, your balance is below #{described_class::MIN_FARE}"
+      expect { subject.touch_in }.to raise_error error_message
+    end
+
     it 'should make in_journey? true' do
       expect(oyster_touched_in).to be_in_journey
     end
@@ -52,8 +57,11 @@ describe Oystercard do
 
   context '#touch_out' do
     it 'should make in_journey? false' do
-      oyster_touched_in.touch_out
-      expect(oyster_touched_in.in_journey).to eq false
+      expect(oyster_touched_out.in_journey).to eq false
+    end
+
+    it 'should deduct min fare on touch out' do
+      expect { oyster_touched_in.touch_out }.to change { oyster_touched_in.balance }.by -described_class::MIN_FARE
     end
   end
 end
