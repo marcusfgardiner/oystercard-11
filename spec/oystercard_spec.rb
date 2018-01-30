@@ -6,6 +6,10 @@ describe Oystercard do
     subject.top_up(50)
     subject
   end
+  let(:oyster_touched_in) do
+    oyster_with_balance.touch_in
+    oyster_with_balance
+  end
 
   context '#initialize' do
     it 'has a default balance of 0' do
@@ -34,28 +38,22 @@ describe Oystercard do
     end
   end
 
-  context '#in_journey' do 
-    it 'returns a boolean' do 
-      expect(oyster_with_balance.in_journey?).to eq(true).or eq(false) 
+  context '#in_journey?' do
+    it 'returns true if in journey' do
+      expect(subject).to be_in_journey
     end
   end
 
-  context '#touch_in' do 
-    it 'changes in_journey status to true' do 
-      expect { oyster_with_balance.touch_in } .to change{ oyster_with_balance.in_journey }.to (true)
+  context '#touch_in' do
+    it 'should make in_journey? true' do
+      expect(oyster_touched_in).to be_in_journey
     end
   end
 
-  context '#touch_out' do 
-    # expect subject to receive method deduct_fare
+  context '#touch_out' do
+    it 'should make in_journey? false' do
+      oyster_touched_in.touch_out
+      expect(oyster_touched_in.in_journey).to eq false
+    end
   end
-
-
-
-  # TODO - make test so this can be true or false
-  # context '#in_journey?' do
-  #   it "changes the card's @journey to true" do
-  #     expect( oyster_with_balance.in_journey).to eq
-  #   end
-  # end
 end
